@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2NANENANE</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
+<style>
+    
+
+#map{
+    height: 100vh;
+    width: 100%;
+
+}
+
+
+</style>
+</head>
+<body>
+    <div id="map"> </div>
+    
+</body>
+</html>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+
+
+ //osm Layer
+ 
+ var map = L.map('map').setView([-6.141439,35.830754], 18);
+
+
+
+var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+
+osm.addTo(map);
+
+//Marker
+
+var singleMarker = L.marker([-6.140660,35.829354]);
+
+singleMarker.addTo(map);
+var popup = singleMarker.bindPopup('Toilet here')
+popup.addTo(map)
+
+//Tile layer
+
+// Esri_WorldImagery
+
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+    Esri_WorldImagery.addTo(map);
+
+    // Stadia_AlidadeSatellite
+
+    var Stadia_AlidadeSatellite = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}', {
+	minZoom: 0,
+	maxZoom: 20,
+	attribution: '&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	ext: 'jpg'});
+
+    Stadia_AlidadeSatellite.addTo(map);
+
+    var CartoDB_DarkMatterNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20});
+
+    CartoDB_DarkMatterNoLabels.addTo(map);
+
+    //googleSat
+
+    googleSat = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+googleSat.addTo(map);
+
+
+googleTerrain = L.tileLayer('http://{s}.google.com/vt?lyrs=p&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']});
+
+    googleTerrain.addTo(map);
+
+    //Layer Control
+
+    var baseLayers = {
+    "OpenStreetMap": osm,
+    "googleTerrain" :googleTerrain,
+    "googleSat" :googleSat,
+
+
+};
+
+var overlays = {
+    "Marker": singleMarker,
+};
+
+L.control.layers(baseLayers, overlays).addTo(map);
+
+//GEOJSON
+
+var geojsonData = {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {
+                    "NAME": "TAST COMPANY LIMITED",
+                    "PHONE": "0753662203",
+                    "EMAIL": "taatcompany3@gmail.com",
+                    "LINK": "https://www.instagram.com/tanzania_agriculture_services?igsh=YzljYTk1ODg3Zg=="
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [35.829979, -6.140563]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "NAME": "Agriculture Careers Hub",
+                    "PHONE": "0624962190",
+                    "EMAIL": "hqjohnx@gmail.com",
+                    "LINK": "https://www.instagram.com/agricareers_hub?igsh=YzljYTk1ODg3Zg=="
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [35.829304, -6.140572]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "NAME": "AgricultureTZ",
+                    "PHONE": "0748252523",
+                    "EMAIL": "emmanuelmwanguo6@gmail.com",
+                    "LINK": "https://www.instagram.com/alvin_joh13?igsh=YzljYTk1ODg3Zg=="
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [35.829723, -6.141275]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "NAME": "BZ- Agriculture Club",
+                    "PHONE": "0788026444",
+                    "EMAIL": "emmanuel.mwanguo@luwssa.go.tz",
+                    "LINK": "https://www.instagram.com/reel/C85IgcTKN2R/?igsh=ZjFkYzMzMDQzZg=="
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [35.830981, -6.140976]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "NAME": "Toilet",
+                    "PHONE": "",
+                    "EMAIL": "",
+                    "LINK": ""
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [35.83022, -6.140421]
+                }
+            }
+        ]
+    };
+
+    function onEachFeature(feature, layer) {
+        if (feature.properties) {
+            var popupContent = "<b>" + feature.properties.NAME + "</b><br>" +
+                               "Phone: <a href='tel:" + feature.properties.PHONE + "'>" + feature.properties.PHONE + "</a><br>" +
+                               "Email: <a href='mailto:" + feature.properties.EMAIL + "'>" + feature.properties.EMAIL + "</a><br>" +
+                               "Link: <a href='" + feature.properties.LINK + "' target='_blank'>Click here</a>";
+            layer.bindPopup(popupContent).openPopup();
+        }
+    }
+
+    L.geoJSON(geojsonData, {
+        onEachFeature: onEachFeature
+    }).addTo(map);
+
+  
+L.Control.geocoder().addTo(map);
+
+var searchControl = new L.Control.Search({
+        layer: geojsonLayer,
+        propertyName: 'NAME',
+        marker: false,
+        moveToLocation: function(latlng, title, map) {
+            // Set the view to the searched location
+            map.setView(latlng, 17);
+            // Open the popup for the feature
+            var feature = geojsonLayer.getLayers().find(function(layer) {
+                return layer.feature.properties.NAME === title;
+            });
+            if (feature) {
+                feature.openPopup();
+            }
+        }
+    });
+
+    searchControl.on('search:locationfound', function(e) {
+        // Do something when a location is found
+        e.layer.openPopup();
+    });
+
+    map.addControl(searchControl);
+</script>
